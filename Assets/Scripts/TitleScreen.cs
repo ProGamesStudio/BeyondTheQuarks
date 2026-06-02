@@ -6,11 +6,14 @@ using System.Collections;
 public class TitleScreen : MonoBehaviour
 {
     public Button firstButton;
+    public Button resumeButton;
 
     void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.None;
+
+        UpdateResumeButton();
     }
 
     void OnEnable()
@@ -29,5 +32,18 @@ public class TitleScreen : MonoBehaviour
 
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(firstButton.gameObject);
+    }
+
+    void UpdateResumeButton()
+    {
+        if (resumeButton == null)
+        {
+            return;
+        }
+
+        if (!SaveSystem.SaveExists())
+        {
+            resumeButton.interactable = false;
+        }
     }
 }
