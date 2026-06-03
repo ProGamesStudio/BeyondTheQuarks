@@ -388,6 +388,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NewGame
   newGamePanel: {fileID: 1842374375}
   noButton: {fileID: 2057488791}
+  newGameButton: {fileID: 999481532}
 --- !u!114 &376941467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1739,6 +1740,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NewGame
   newGamePanel: {fileID: 1842374375}
   noButton: {fileID: 2057488791}
+  newGameButton: {fileID: 999481532}
 --- !u!1 &1338527335
 GameObject:
   m_ObjectHideFlags: 0
@@ -2512,6 +2514,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NewGame
   newGamePanel: {fileID: 1842374375}
   noButton: {fileID: 2057488791}
+  newGameButton: {fileID: 999481532}
 --- !u!114 &2057488791
 MonoBehaviour:
   m_ObjectHideFlags: 0

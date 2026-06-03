@@ -6,6 +6,7 @@ public class NewGame : MonoBehaviour
 {
     public GameObject newGamePanel;
     public Button noButton;
+    public Button newGameButton;
 
     public void OnNewGamePressed()
     {
@@ -35,6 +36,7 @@ public class NewGame : MonoBehaviour
     public void OnConfirmNo()
     {
         newGamePanel.SetActive(false);
+        newGameButton.Select();
     }
 
     public void StartNewGame()
