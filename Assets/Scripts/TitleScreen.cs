@@ -7,11 +7,14 @@ public class TitleScreen : MonoBehaviour
 {
     public Button firstButton;
     public Button resumeButton;
+    public GameObject confirmPanel;
 
     void Start()
     {
         Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.None;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        confirmPanel.SetActive(false);
 
         UpdateResumeButton();
     }
@@ -19,6 +22,14 @@ public class TitleScreen : MonoBehaviour
     void OnEnable()
     {
         StartCoroutine(SelectFirstButton());
+    }
+
+    void Update()
+    {
+        if (confirmPanel != null && confirmPanel.activeSelf)
+        {
+            return; // Stop processing input if the confirm panel is active
+        }
     }
 
     IEnumerator SelectFirstButton()
