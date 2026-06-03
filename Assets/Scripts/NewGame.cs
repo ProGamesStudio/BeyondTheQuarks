@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class NewGame : MonoBehaviour
@@ -43,6 +42,6 @@ public class NewGame : MonoBehaviour
     {
         SaveSystem.DeleteSave();
 
-        SceneManager.LoadScene("TutorialScene");
+        SceneTransition.Instance.LoadScene("StoryScene");
     }
 }

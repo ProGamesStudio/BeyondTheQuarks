@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Resume : MonoBehaviour
 {
@@ -19,6 +18,6 @@ public class Resume : MonoBehaviour
 
         LoadManager.loadedData = data;
 
-        SceneManager.LoadScene(data.sceneName);
+        SceneTransition.Instance.LoadScene(data.sceneName);
     }
 }
