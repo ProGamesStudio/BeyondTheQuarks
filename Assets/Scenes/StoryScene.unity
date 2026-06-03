@@ -727,7 +727,22 @@ MonoBehaviour:
   fadePanel: {fileID: 98430877}
   slides:
   - image: {fileID: 3476728046899638286, guid: c4ad918d54c87ee46809673598b29b14, type: 3}
-    text: Test
+    text: 'In the near future, an advanced AI  made an unprecedented discovery. After
+      analyzing quantum data for over three years without interruption, it designed
+      a theoretical model capable of bending the fabric of spacetime: opening stable
+      pathways between parallel universes.'
+  - image: {fileID: -5005343417651835801, guid: 9aa509a2419cf1648b1328f17523c7f6, type: 3}
+    text: NASA took the AI's theoretical model and spent years turning it into something
+      real. After hundreds of failed experiments, they finally succeeded. The result
+      was Q.U.A.R.K. (Quantum Universal Aperture and Relocation Key), a wrist-mounted
+      device capable of generating a stable wormhole and theorically transporting
+      a humans across the multiverse.
+  - image: {fileID: -7255154345229648261, guid: 6987585edf5737e4b8bdab0c3da4c9c9, type: 3}
+    text: 'After years of testing, the day finally came. NASA launched the first
+      interuniversal exploration mission, and you were chosen. It''s a great honor.
+      Your name was destined to remain in history forever, to become even more famous
+      than Armstrong. The destination: a carefully studied and supposedly safe universe.
+      One small step for a man, one giant leap for the entire multiverse.'
   typingSpeed: 0.04
   fadeDuration: 0.5
   nextScene: TutorialScene

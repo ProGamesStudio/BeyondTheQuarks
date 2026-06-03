@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 using TMPro;
 using System.Collections;
 
@@ -44,7 +45,14 @@ public class StoryScene : MonoBehaviour
             return;
         }
 
-        bool pressed = Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Submit");
+        bool pressed = Keyboard.current != null && (
+            Keyboard.current.spaceKey.wasPressedThisFrame ||
+            Keyboard.current.enterKey.wasPressedThisFrame ||
+            Keyboard.current.numpadEnterKey.wasPressedThisFrame
+        ) || Gamepad.current != null && (
+            Gamepad.current.buttonSouth.wasPressedThisFrame ||
+            Gamepad.current.startButton.wasPressedThisFrame
+        );
 
         if (!pressed)
         {
