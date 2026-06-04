@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using System.Collections;
 using TMPro;
 
 public class NameInput : MonoBehaviour
@@ -26,7 +27,40 @@ public class NameInput : MonoBehaviour
 
         if (Keyboard.current != null && Keyboard.current.enterKey.wasPressedThisFrame && confirmButton.interactable)
         {
-            OnConfirm();
+            if (confirmButton.interactable)
+            {
+                OnConfirm();
+            }
+            else
+            {
+                FocusInput();
+            }
+        }
+
+        bool tabPressed = Keyboard.current != null && Keyboard.current.tabKey.wasPressedThisFrame;
+        bool downPressed = Keyboard.current != null && Keyboard.current.downArrowKey.wasPressedThisFrame;
+        bool upPressed = Keyboard.current != null && Keyboard.current.upArrowKey.wasPressedThisFrame;
+        bool gamepadDown = Gamepad.current != null && Gamepad.current.dpad.down.wasPressedThisFrame;
+        bool gamepadUp = Gamepad.current != null && Gamepad.current.dpad.up.wasPressedThisFrame;
+
+        if (tabPressed || downPressed || gamepadDown)
+        {
+            if (inputField.isFocused && confirmButton.interactable)
+            {
+                FocusButton();
+            }
+            else
+            {
+                FocusInput();
+            }
+        }
+
+        if (upPressed || gamepadUp)
+        {
+            if (!inputField.isFocused)
+            {
+                FocusInput();
+            }
         }
     }
 
@@ -35,14 +69,19 @@ public class NameInput : MonoBehaviour
         onConfirmed = callback;
         namePanel.SetActive(true);
         inputField.text = "";
-        inputField.ActivateInputField();
         confirmButton.interactable = false;
         inputField.onValueChanged.AddListener(OnInputChanged);
+        StartCoroutine(FocusInputNextFrame());
     }
 
     void OnInputChanged(string value)
     {
         confirmButton.interactable = value.Trim().Length > 0;
+
+        if (value.Trim().Length == 0)
+        {
+            FocusInput();
+        }
     }
 
     void OnConfirm()
@@ -58,8 +97,31 @@ public class NameInput : MonoBehaviour
         data.playerName = playerName;
         SaveSystem.SaveGame(data);
 
-        namePanel.SetActive(false);
+        // namePanel.SetActive(false);
         inputField.onValueChanged.RemoveListener(OnInputChanged);
         onConfirmed?.Invoke();
+    }
+
+    void FocusInput()
+    {
+        StartCoroutine(FocusInputNextFrame());
+    }
+
+    IEnumerator FocusInputNextFrame()
+    {
+        yield return null;
+
+        inputField.ActivateInputField();
+        inputField.Select();
+
+        Cursor.visible = false;
+    }
+
+    void FocusButton()
+    {
+        inputField.DeactivateInputField();
+        confirmButton.Select();
+
+        Cursor.visible = false;
     }
 }
