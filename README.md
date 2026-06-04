@@ -2,6 +2,8 @@
 
 **Beyond the Quarks** is a 2D sci-fi exploration and adventure game developed in *Unity*.
 
+> A multiverse survival adventure: fix your wormhole device piece by piece, hopping across alien realities until you can finally return home.
+
 ## Plot
 In the near future, an advanced artificial intelligence develops a revolutionary technology capable of generating wormholes and opening pathways between parallel universes.
 This breakthrough leads to the creation of **Q.U.A.R.K.** (*Quantum Universal Aperture and Relocation Key*), a device designed to safely transport matter across the multiverse.

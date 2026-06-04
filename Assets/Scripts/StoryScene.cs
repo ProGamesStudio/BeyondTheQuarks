@@ -28,6 +28,9 @@ public class StoryScene : MonoBehaviour
     public float fadeDuration = 0.5f;
     public string nextScene = "TutorialScene";
 
+    [Header("Name Input")]
+    public NameInput nameInput;
+
     private int currentIndex = 0;
     private bool isTyping = false;
     private bool isTransitioning = false;
@@ -146,8 +149,12 @@ public class StoryScene : MonoBehaviour
     IEnumerator EndStory()
     {
         isTransitioning = true;
-        yield return StartCoroutine(Fade(0f, 1f));
+        
+        nameInput.Show(() =>
+        {
+            SceneTransition.Instance.LoadScene(nextScene);
+        });
 
-        SceneTransition.Instance.LoadScene(nextScene);
+        yield break;
     }
 }
