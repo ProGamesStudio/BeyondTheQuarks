@@ -36,6 +36,13 @@ public class StoryScene : MonoBehaviour
     private bool isTransitioning = false;
     private Coroutine typingCoroutine;
 
+    [Header("Sound Effects")]
+    public AudioSource audioSource;
+    public AudioClip[] typingSounds;
+    public float minSoundInterval = 0.05f;
+
+    private float lastSoundTime = -1f;
+
     void Start()
     {
         StartCoroutine(StartSequence());
@@ -84,6 +91,25 @@ public class StoryScene : MonoBehaviour
         }
     }
 
+    void PlayTypingSound()
+    {
+        if (audioSource == null || typingSounds.Length == 0)
+        {
+            return;
+        }
+
+        if (Time.time - lastSoundTime < minSoundInterval)
+        {
+            return;
+        }
+        
+        int randomIndex = Random.Range(0, typingSounds.Length);
+
+        audioSource.PlayOneShot(typingSounds[randomIndex]);
+
+        lastSoundTime = Time.time;
+    }
+
     IEnumerator StartSequence()
     {
         storyImage.sprite = slides[0].image;
@@ -123,6 +149,7 @@ public class StoryScene : MonoBehaviour
         foreach (char c in text)
         {
             storyText.text += c;
+            PlayTypingSound();
             yield return new WaitForSeconds(typingSpeed);
         }
 
