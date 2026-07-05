@@ -6,7 +6,7 @@ public enum FacingDirection
     Down, Up, Left, Right
 }
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovements : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed = 3.5f;
