@@ -34,7 +34,7 @@ public class CameraRoomManager : MonoBehaviour
             return;
         }
 
-        Vector3 target = ClampToRoom(player.position, currentRoom.GetBounds());
+        Vector3 target = GetTargetPosition(currentRoom.GetBounds());
         transform.position = Vector3.SmoothDamp(transform.position, target, ref followVelocity, followSmoothTime);
     }
 
@@ -42,10 +42,7 @@ public class CameraRoomManager : MonoBehaviour
     {
         currentRoom = room;
 
-        if (player != null)
-        {
-            transform.position = ClampToRoom(player.position, room.GetBounds());
-        }
+        transform.position = GetTargetPosition(room.GetBounds());
     }
 
     public void TransitionToRoom(RoomSizeManager newRoom)
@@ -64,7 +61,7 @@ public class CameraRoomManager : MonoBehaviour
 
         Vector3 startPos = transform.position;
         Bounds targetBounds = newRoom.GetBounds();
-        Vector3 endPos = ClampToRoom(player != null ? player.position : targetBounds.center, targetBounds);
+        Vector3 endPos = GetTargetPosition(targetBounds);
 
         float elapsed = 0f;
 
@@ -83,19 +80,15 @@ public class CameraRoomManager : MonoBehaviour
         isTransitioning = false;
     }
 
-    Vector3 ClampToRoom(Vector3 targetPos, Bounds roomBounds)
+    Vector3 GetTargetPosition(Bounds roomBounds)
     {
-        float halfHeight = cam.orthographicSize;
-        float halfWidth = halfHeight*cam.aspect;
-
-        float minX = roomBounds.min.x+halfWidth;
-        float maxX = roomBounds.max.x-halfWidth;
-        float minY = roomBounds.min.y+halfHeight;
-        float maxY = roomBounds.max.y-halfHeight;
-
-        float x = minX <= maxX?Mathf.Clamp(targetPos.x, minX, maxX):roomBounds.center.x;
-        float y = minY <= maxY?Mathf.Clamp(targetPos.y, minY, maxY):roomBounds.center.y;
-
-        return new Vector3(x, y, transform.position.z);
+        float viewHeight = cam.orthographicSize * 2f;
+        float viewWidth = viewHeight * cam.aspect;
+ 
+        bool roomFitsInView = (roomBounds.size.x<=viewWidth)&&(roomBounds.size.y<=viewHeight);
+ 
+        Vector3 target = roomFitsInView?roomBounds.center:(player != null?player.position:roomBounds.center);
+ 
+        return new Vector3(target.x, target.y, transform.position.z);
     }
 }

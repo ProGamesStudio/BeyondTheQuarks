@@ -3,7 +3,7 @@ using UnityEngine;
 public class RoomSizeManager : MonoBehaviour
 {
     [Tooltip("Half-size of the room")]
-    public Vector2 size = new Vector2(10f, 6f);
+    public Vector2 size = new Vector2(8.9f, 5f);
 
     public Bounds GetBounds()
     {
