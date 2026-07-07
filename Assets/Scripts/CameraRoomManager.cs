@@ -19,6 +19,8 @@ public class CameraRoomManager : MonoBehaviour
 
     private Camera cam;
     private RoomSizeManager currentRoom;
+    private RoomSizeManager targetRoom;
+    private Coroutine transitionCoroutine;
     private Vector3 followVelocity;
     private bool isTransitioning;
 
@@ -50,23 +52,30 @@ public class CameraRoomManager : MonoBehaviour
     public void SetInitialRoom(RoomSizeManager room)
     {
         currentRoom = room;
+        targetRoom = room;
         followVelocity = Vector3.zero;
         transform.position = GetTargetPosition(room);
     }
 
     public void TransitionToRoom(RoomSizeManager newRoom)
     {
-        if (newRoom == currentRoom || isTransitioning)
+        if (newRoom == targetRoom)
         {
             return;
         }
 
-        StartCoroutine(TransitionRoutine(newRoom));
+        if (transitionCoroutine != null)
+        {
+            StopCoroutine(transitionCoroutine);
+        }
+
+        transitionCoroutine = StartCoroutine(TransitionRoutine(newRoom));
     }
 
     IEnumerator TransitionRoutine(RoomSizeManager newRoom)
     {
         isTransitioning = true;
+        targetRoom = newRoom;
         followVelocity = Vector3.zero;
 
         Vector3 startPos = transform.position;
@@ -88,6 +97,7 @@ public class CameraRoomManager : MonoBehaviour
         currentRoom = newRoom;
         followVelocity = Vector3.zero;
         isTransitioning = false;
+        transitionCoroutine = null;
     }
 
     Vector3 GetTargetPosition(RoomSizeManager room)

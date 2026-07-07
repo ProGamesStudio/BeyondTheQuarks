@@ -865,7 +865,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53277c9b9c60f4ac3bbedac4f851bd1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomTrigger
+  thisRoom: {fileID: 1889835588}
   nextRoom: {fileID: 192291071}
+  thisDoorCollider: {fileID: 312421225}
+  nextDoorCollider: {fileID: 2091339926}
   playerTag: Player
 --- !u!61 &312421225
 BoxCollider2D:
@@ -2357,7 +2360,7 @@ GameObject:
   - component: {fileID: 1258596950}
   - component: {fileID: 1258596949}
   m_Layer: 0
-  m_Name: Door_2-3
+  m_Name: Door_3-2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2372,7 +2375,7 @@ Transform:
   m_GameObject: {fileID: 1258596947}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -14.5, z: 0}
+  m_LocalPosition: {x: 0, y: -9.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2390,7 +2393,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53277c9b9c60f4ac3bbedac4f851bd1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomTrigger
+  thisRoom: {fileID: 1848160599}
   nextRoom: {fileID: 192291071}
+  thisDoorCollider: {fileID: 1258596950}
+  nextDoorCollider: {fileID: 1462692132}
   playerTag: Player
 --- !u!61 &1258596950
 BoxCollider2D:
@@ -2483,7 +2489,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53277c9b9c60f4ac3bbedac4f851bd1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomTrigger
+  thisRoom: {fileID: 192291071}
   nextRoom: {fileID: 1848160599}
+  thisDoorCollider: {fileID: 1462692132}
+  nextDoorCollider: {fileID: 1258596950}
   playerTag: Player
 --- !u!61 &1462692132
 BoxCollider2D:
@@ -3440,7 +3449,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53277c9b9c60f4ac3bbedac4f851bd1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomTrigger
+  thisRoom: {fileID: 192291071}
   nextRoom: {fileID: 1889835588}
+  thisDoorCollider: {fileID: 2091339926}
+  nextDoorCollider: {fileID: 312421225}
   playerTag: Player
 --- !u!61 &2091339926
 BoxCollider2D:
