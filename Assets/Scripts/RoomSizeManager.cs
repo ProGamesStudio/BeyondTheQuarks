@@ -5,6 +5,9 @@ public class RoomSizeManager : MonoBehaviour
     [Tooltip("Half-size of the room")]
     public Vector2 size = new Vector2(8.9f, 5f);
 
+    [Tooltip("If true, the camera follows the player; If false, the camera stays on the room's center")]
+    public bool cameraFollowsPlayer = false;
+
     public Bounds GetBounds()
     {
         return new Bounds(transform.position, new Vector3(size.x * 2f, size.y * 2f, 0f));

@@ -15,6 +15,7 @@ public class CameraRoomManager : MonoBehaviour
     [Header("Room Transition")]
     public float roomTransitionDuration = 0.6f;
     public AnimationCurve transitionEase = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    public RoomSizeManager initialRoom;
 
     private Camera cam;
     private RoomSizeManager currentRoom;
@@ -27,6 +28,14 @@ public class CameraRoomManager : MonoBehaviour
         cam = GetComponent<Camera>();
     }
 
+    void Start()
+    {
+        if (initialRoom != null)
+        {
+            SetInitialRoom(initialRoom);
+        }
+    }
+
     void LateUpdate()
     {
         if (isTransitioning || currentRoom == null || player == null)
@@ -34,15 +43,15 @@ public class CameraRoomManager : MonoBehaviour
             return;
         }
 
-        Vector3 target = GetTargetPosition(currentRoom.GetBounds());
+        Vector3 target = GetTargetPosition(currentRoom);
         transform.position = Vector3.SmoothDamp(transform.position, target, ref followVelocity, followSmoothTime);
     }
 
     public void SetInitialRoom(RoomSizeManager room)
     {
         currentRoom = room;
-
-        transform.position = GetTargetPosition(room.GetBounds());
+        followVelocity = Vector3.zero;
+        transform.position = GetTargetPosition(room);
     }
 
     public void TransitionToRoom(RoomSizeManager newRoom)
@@ -58,10 +67,10 @@ public class CameraRoomManager : MonoBehaviour
     IEnumerator TransitionRoutine(RoomSizeManager newRoom)
     {
         isTransitioning = true;
+        followVelocity = Vector3.zero;
 
         Vector3 startPos = transform.position;
-        Bounds targetBounds = newRoom.GetBounds();
-        Vector3 endPos = GetTargetPosition(targetBounds);
+        Vector3 endPos = GetTargetPosition(newRoom);
 
         float elapsed = 0f;
 
@@ -77,17 +86,13 @@ public class CameraRoomManager : MonoBehaviour
 
         transform.position = endPos;
         currentRoom = newRoom;
+        followVelocity = Vector3.zero;
         isTransitioning = false;
     }
 
-    Vector3 GetTargetPosition(Bounds roomBounds)
+    Vector3 GetTargetPosition(RoomSizeManager room)
     {
-        float viewHeight = cam.orthographicSize * 2f;
-        float viewWidth = viewHeight * cam.aspect;
- 
-        bool roomFitsInView = (roomBounds.size.x<=viewWidth)&&(roomBounds.size.y<=viewHeight);
- 
-        Vector3 target = roomFitsInView?roomBounds.center:(player != null?player.position:roomBounds.center);
+        Vector3 target = room.cameraFollowsPlayer && player != null ? player.position : room.GetBounds().center;
  
         return new Vector3(target.x, target.y, transform.position.z);
     }
